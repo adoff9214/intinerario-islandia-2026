@@ -294,12 +294,16 @@
 
     // Ruta completa (con encode)
     function getFullRoute(stops) {
-      const baseUrl = "https://www.google.com/maps/dir/?api=1";
-      const origin = encodeURIComponent(stops[0].coords);
-      const destination = encodeURIComponent(stops[stops.length - 1].coords);
-      const waypoints = encodeURIComponent(stops.slice(1, -1).map(s => s.coords).join("|"));
-      return `${baseUrl}&origin=${origin}&destination=${destination}&waypoints=${waypoints}&travelmode=driving`;
-    }
+  const baseUrl = "https://www.google.com/maps/dir/?api=1";
+
+  const origin = encodeURIComponent(stops[0].coords);
+  const destination = encodeURIComponent(stops[stops.length - 1].coords);
+
+  const waypointsArray = stops.slice(1, -1).map(s => s.coords);
+  const waypoints = encodeURIComponent(waypointsArray.join("|"));
+
+  return `${baseUrl}&origin=${origin}&destination=${destination}&waypoints=${waypoints}&travelmode=driving`;
+}
 
     function renderTabs() {
       const container = document.getElementById("day-selector");
@@ -532,4 +536,5 @@
   </script>
 </body>
 </html>
+
 
